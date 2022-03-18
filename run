@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Follow any symlinks to the actual folder in which this script lives.
+SCRIPT_DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+
+# Runs an NPM script much faster than using Yarn or NPM itself.
+# See cli.js itself for more info.
+node "$SCRIPT_DIR/src/cli.js" "$@"

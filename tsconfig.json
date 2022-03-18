@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    // Enable strictest settings like strictNullChecks & noImplicitAny.
+    "strict": true,
+    "target": "ESNext",
+    // Allow dynamic imports.
+    "module": "ESNext",
+    // Use node-style resolution of modules.
+    "moduleResolution": "Node",
+    // Allow importing non-TS files as "any".
+    "noImplicitAny": false,
+    // For glob pacakge.
+    "allowSyntheticDefaultImports": true,
+    // Make relevant libraries "available" for the purpose of typechecking.
+    "lib": [
+      "ES2020"
+    ],
+    // Dramatically speed up successive compilations.
+    "incremental": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

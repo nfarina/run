@@ -1,0 +1,10 @@
+{
+  // Turn on auto-format by default.
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.codeActionsOnSave": [
+      "source.organizeImports",
+    ],
+  },
+  "typescript.tsdk": "./node_modules/typescript/lib",
+}
