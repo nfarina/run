@@ -128,7 +128,13 @@ export class Package {
     // Workspaces can use glob-style wildcards.
     let workspacePaths: string[] = [];
 
-    for (const workspace of this.packageJson.workspaces ?? []) {
+    const workspaces = this.packageJson.workspaces;
+    const packages =
+      workspaces && typeof workspaces === "object"
+        ? workspaces.packages // To support: https://classic.yarnpkg.com/blog/2018/02/15/nohoist/
+        : workspaces;
+
+    for (const workspace of packages) {
       workspacePaths = workspacePaths.concat(await glob(workspace));
     }
 
