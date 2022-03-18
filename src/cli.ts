@@ -1,8 +1,6 @@
 import { Package } from "./Package.js";
 
-main();
-
-async function main() {
+export async function cli() {
   let pack = await Package.findNearest(process.cwd());
 
   if (pack === null) {
@@ -18,11 +16,36 @@ async function main() {
 
   // If this package is a workspace, check to see if your first argument is
   // the name of a package in the workspace. If so, use that package instead.
-  if (pack.isWorkspace && args[0]) {
-    const workspacePack = await pack.findWorkspacePackage(args[0]);
+  let maybeSubpackage = args[0];
+
+  if (pack.isWorkspace && maybeSubpackage) {
+    // Did you type "workspace" itself to be explicit?
+    const typedWorkspace = maybeSubpackage === "workspace";
+
+    if (typedWorkspace) {
+      args.shift();
+      maybeSubpackage = args[0];
+
+      if (!maybeSubpackage) {
+        console.error(
+          "You must specify a package name when using the workspace command.",
+        );
+        process.exit(1);
+      }
+    }
+
+    const workspacePack = await pack.findWorkspacePackage(
+      args[0],
+      typedWorkspace,
+    );
     if (workspacePack) {
       pack = workspacePack;
       args.shift();
+    } else if (typedWorkspace) {
+      console.error(
+        `No package named "${maybeSubpackage}" found in workspace.`,
+      );
+      process.exit(1);
     }
   }
 

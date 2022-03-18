@@ -55,6 +55,14 @@ export class Package {
 
     const command = scripts[scriptName];
 
+    if (command === undefined) {
+      console.error(
+        `No script named "${scriptName}" found in package "${name}".`,
+      );
+      this.printAvailableScripts();
+      process.exit(1);
+    }
+
     console.log(`[${name}] Executing:`, command + " " + args);
 
     let withPath = `export PATH=$PATH:${dir}/node_modules/.bin`;
@@ -102,7 +110,10 @@ export class Package {
     return null;
   }
 
-  public async findWorkspacePackage(name: string): Promise<Package | null> {
+  public async findWorkspacePackage(
+    name: string,
+    typedWorkspace?: boolean,
+  ): Promise<Package | null> {
     if (!this.isWorkspace) {
       return null;
     }
@@ -130,10 +141,19 @@ export class Package {
         // Before returning this package, check that the name you typed doesn't
         // conflict with a script in the workspace.
         if (this.scripts[name] !== undefined) {
-          console.error(
-            `The argument "${name}" could refer to either the package "${workspacePackage.name}" or the script "${name}" at the workspace root.`,
-          );
-          process.exit(1);
+          // If the script name matches the package name exactly, we can't
+          // resolve the ambiguity.
+          if (name === workspacePackage.name) {
+            console.error(
+              `The argument "${name}" could refer to either the package "${workspacePackage.name}" or the script "${name}" at the workspace root.`,
+            );
+            process.exit(1);
+          } else if (!typedWorkspace) {
+            // Otherwise, resolve the ambiguity by picking the workspace root
+            // script. Unless you typed "workspace" to force a package to be
+            // picked instead of a fallback root script.
+            return null;
+          }
         }
 
         return workspacePackage;
