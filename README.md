@@ -29,10 +29,7 @@ doing nothing while your development server is running.
 # Installing
 
 ```sh
-~ > git clone https://github.com/nfarina/run.git
-~ > cd run
-~/run > npm install
-~/run > npm run build # oh, the irony
+~ > npm install --global fast-run
 ```
 
 ### macOS or \*nix Systems

@@ -1,13 +1,21 @@
 {
-  "name": "run",
-  "version": "1.0.0",
+  "name": "fast-run",
+  "version": "1.0.3",
   "description": "Executes scripts in your package.json much faster than NPM or Yarn, especially for projects using Yarn Workspaces. And with less typing.",
   "type": "module",
   "author": "nfarina@gmail.com",
   "license": "ISC",
+  "bin": {
+    "run": "bin/run.js"
+  },
+  "files": [
+    "bin",
+    "src/**/*.js"
+  ],
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "chalk": "^5.0.1",

@@ -98,9 +98,16 @@ export class Package {
     let currentPath = path;
     while (currentPath !== "/") {
       const packageJsonPath = join(currentPath, "package.json");
-      const statResult = await stat(packageJsonPath);
+      let exists: boolean;
 
-      if (statResult.isFile()) {
+      try {
+        const statResult = await stat(packageJsonPath, {});
+        exists = statResult.isFile();
+      } catch (e) {
+        exists = false;
+      }
+
+      if (exists) {
         const packageJson = await readFile(packageJsonPath, "utf8");
         return new Package(currentPath, JSON.parse(packageJson));
       }
