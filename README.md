@@ -29,7 +29,7 @@ doing nothing while your development server is running.
 # Installing
 
 ```sh
-~ > npm install --global fast-run
+npm install --global fast-run
 ```
 
 # Simplified Commands
@@ -59,7 +59,7 @@ For instance, unlike Yarn, you don't have to add the `workspace` argument to run
 
 # Or go into a package folder directly and run things there.
 ~/blog > cd packages/node-server
-~/…/node-server > run build
+~/blog/packages/node-server > run build
 ```
 
 # Show Available Commands
@@ -67,7 +67,7 @@ For instance, unlike Yarn, you don't have to add the `workspace` argument to run
 Like Yarn, you can easily get a list of available scripts:
 
 ```
-~ > run
+> run
 
 Available commands in package blog:
 
@@ -78,7 +78,7 @@ Available commands in package blog:
 Or, for a list of scripts in a particular package:
 
 ```
-~ > run node-server
+> run node-server
 
 Available commands in package node-server:
 
