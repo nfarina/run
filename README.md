@@ -32,24 +32,6 @@ doing nothing while your development server is running.
 ~ > npm install --global fast-run
 ```
 
-### macOS or \*nix Systems
-
-You can add the `bin` folder to your path:
-
-```sh
-# Maybe in .bashrc or .bash_profile
-export PATH=$PATH:~/run/bin
-```
-
-Or you can add a symlink (this is what I do):
-
-```sh
-# From wherever you cloned it…
-> sudo ln -s ~/run/run.js /usr/local/bin/run
-```
-
-Better installation options await repo popularity.
-
 # Simplified Commands
 
 Because Run is not concerned with other aspects of package management, it can interpret your command-line arguments with a lot of flexibility.
