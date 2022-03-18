@@ -40,24 +40,48 @@ For instance, unlike Yarn, you don't have to add the `workspace` argument to run
 
 ```sh
 # Execute a script in the package root.
-~/my-server > yarn build
+~/blog > yarn build
 
 # Execute a script in a workspace package.
-~/my-server > yarn workspace awesome-server build
+~/blog > yarn workspace node-server build
 
 # Run, like Yarn, assumes you want a workspace root script unless you're in a subpackage folder.
-~/my-server > run build
+~/blog > run build
 
 # This is less typing…
-~/my-server > run awesome-server build
+~/blog > run node-server build
 
 # And you can even type package substrings if the package names are awkward.
-~/my-server > run server build
+~/blog > run server build
 
 # But you can still add "workspace" like Yarn to be explicit or to resolve ambiguity.
-~/my-server > run workspace serve build
+~/blog > run workspace serve build
 
 # Or go into a package folder directly and run things there.
-~/my-server > cd packages/awesome-server
-~/…/awesome-server > run build
+~/blog > cd packages/node-server
+~/…/node-server > run build
+```
+
+# Show Available Commands
+
+Like Yarn, you can easily get a list of available scripts:
+
+```
+~ > run
+
+Available commands in package blog:
+
+  dev    tsc --watch
+  build  run node-server build
+```
+
+Or, for a list of scripts in a particular package:
+
+```
+~ > run node-server
+
+Available commands in package node-server:
+
+  test   jest
+  build  webpack
 ```
