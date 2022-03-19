@@ -130,7 +130,7 @@ export class Package {
 
     const workspaces = this.packageJson.workspaces;
     const packages =
-      workspaces && typeof workspaces === "object"
+      workspaces && typeof workspaces === "object" && !Array.isArray(workspaces)
         ? workspaces.packages // To support: https://classic.yarnpkg.com/blog/2018/02/15/nohoist/
         : workspaces;
 
