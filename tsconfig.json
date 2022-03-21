@@ -2,9 +2,9 @@
   "compilerOptions": {
     // Enable strictest settings like strictNullChecks & noImplicitAny.
     "strict": true,
-    "target": "ESNext",
+    "target": "ES2019",
     // Allow dynamic imports.
-    "module": "ESNext",
+    "module": "CommonJS",
     // Use node-style resolution of modules.
     "moduleResolution": "Node",
     // Allow importing non-TS files as "any".
@@ -13,7 +13,7 @@
     "allowSyntheticDefaultImports": true,
     // Make relevant libraries "available" for the purpose of typechecking.
     "lib": [
-      "ES2020"
+      "ES2019"
     ],
     // Dramatically speed up successive compilations.
     "incremental": true

@@ -1,8 +1,7 @@
 {
   "name": "fast-run",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Executes scripts in your package.json much faster than NPM or Yarn, especially for projects using Yarn Workspaces. And with less typing.",
-  "type": "module",
   "author": "nfarina@gmail.com",
   "license": "ISC",
   "bin": {
@@ -18,7 +17,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "chalk": "^5.0.1",
+    "chalk": "4.x.x",
     "glob": "^7.2.0",
     "glob-promise": "^4.2.2"
   },
