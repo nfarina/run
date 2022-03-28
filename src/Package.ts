@@ -63,14 +63,20 @@ export class Package {
       process.exit(1);
     }
 
-    console.log(`[${name}] Executing:`, command + " " + args);
+    // console.log(`[${name}] Executing:`, command + " " + args);
 
-    let withPath = `export PATH=$PATH:${dir}/node_modules/.bin`;
+    // Starting with `dir` and working our way up the directory tree, look for
+    // `node_modules` folders in which we might find a `.bin` folder to add
+    // to our working path for this command.
+    let withPath = `export PATH=$PATH`;
 
-    if (this.parent) {
-      // Add in the binary path for our parent workspace since Yarn will put all
-      // modules there.
-      withPath += `:${this.parent.dir}/node_modules/.bin`;
+    for (let path = dir; path.length > 1; path = dirname(path)) {
+      const nodeModulesPath = join(path, "node_modules");
+      const binPath = join(nodeModulesPath, ".bin");
+
+      if (await directoryExists(binPath)) {
+        withPath += `:${binPath}`;
+      }
     }
 
     const cmdWithPath = `${withPath}; ${command} ${wrappedArgs}`;
@@ -98,16 +104,8 @@ export class Package {
     let currentPath = path;
     while (currentPath !== "/") {
       const packageJsonPath = join(currentPath, "package.json");
-      let exists: boolean;
 
-      try {
-        const statResult = await stat(packageJsonPath, {});
-        exists = statResult.isFile();
-      } catch (e) {
-        exists = false;
-      }
-
-      if (exists) {
+      if (await fileExists(packageJsonPath)) {
         const packageJson = await readFile(packageJsonPath, "utf8");
         return new Package(currentPath, JSON.parse(packageJson));
       }
@@ -174,5 +172,23 @@ export class Package {
     }
 
     return null;
+  }
+}
+
+async function fileExists(file: string): Promise<boolean> {
+  try {
+    const statResult = await stat(file, {});
+    return statResult.isFile();
+  } catch (e) {
+    return false;
+  }
+}
+
+async function directoryExists(file: string): Promise<boolean> {
+  try {
+    const statResult = await stat(file, {});
+    return statResult.isDirectory();
+  } catch (e) {
+    return false;
   }
 }
