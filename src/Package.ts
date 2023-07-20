@@ -87,7 +87,7 @@ export class Package {
       cwd: dir,
     });
 
-    return await new Promise((resolve) => {
+    return new Promise((resolve) => {
       child.on("exit", (code) => {
         resolve(code ?? 0);
       });

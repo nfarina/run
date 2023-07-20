@@ -58,8 +58,14 @@ export async function cli() {
     process.exit(0);
   }
 
+  // Simply listening to SIGINT tells Node to not exit when you press Ctrl+C.
+  // This is what we want; we expect the child process to exit, and then we
+  // will exit naturally. Otherwise Node will kill us and your terminal may be
+  // left in a weird state (that thing where you hit arrow keys and it types
+  // gibberish).
+  process.on("SIGINT", () => {});
+
   // Run the script.
   const exitCode = await pack.runScript({ scriptName, args });
-
   process.exit(exitCode);
 }
