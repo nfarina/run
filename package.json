@@ -1,6 +1,6 @@
 {
   "name": "fast-run",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Executes scripts in your package.json much faster than NPM or Yarn, especially for projects using Yarn Workspaces. And with less typing.",
   "author": "nfarina@gmail.com",
   "license": "ISC",
