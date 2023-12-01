@@ -145,7 +145,9 @@ export class Package {
       }),
     );
 
-    // Find the package with the matching name.
+    // Find the package with the closest matching name.
+    let matchingPackages: Package[] = [];
+
     for (const workspacePackage of workspacePackages) {
       // Allow you to type a substring of the package name.
       if (workspacePackage.name.includes(name)) {
@@ -167,11 +169,36 @@ export class Package {
           }
         }
 
-        return workspacePackage;
+        matchingPackages.push(workspacePackage);
       }
     }
 
-    return null;
+    // Did you type an exact match?
+    const exactPackage = matchingPackages.find((p) => p.name === name);
+    if (exactPackage) {
+      return exactPackage;
+    }
+
+    // If there's only one match, return it.
+    if (matchingPackages.length === 1) {
+      return matchingPackages[0];
+    }
+
+    // If there are no matches, return null.
+    if (matchingPackages.length === 0) {
+      return null;
+    }
+
+    // If there are multiple matches, print out a list of them.
+    console.error(
+      `The argument "${name}" could refer to any of the following packages:`,
+    );
+
+    for (const package_ of matchingPackages) {
+      console.error(`  ${package_.name}`);
+    }
+
+    process.exit(1);
   }
 }
 
