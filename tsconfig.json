@@ -2,23 +2,20 @@
   "compilerOptions": {
     // Enable strictest settings like strictNullChecks & noImplicitAny.
     "strict": true,
-    "target": "ES2019",
-    // Allow dynamic imports.
-    "module": "CommonJS",
+    // Update target to a more recent ECMAScript version
+    "target": "ES2022",
+    // Change module to NodeNext for ESM output
+    "module": "NodeNext",
     // Use node-style resolution of modules.
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     // Allow importing non-TS files as "any".
     "noImplicitAny": false,
-    // For glob pacakge.
+    // For glob package.
     "allowSyntheticDefaultImports": true,
     // Make relevant libraries "available" for the purpose of typechecking.
-    "lib": [
-      "ES2019"
-    ],
+    "lib": ["ES2022"],
     // Dramatically speed up successive compilations.
     "incremental": true
   },
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }

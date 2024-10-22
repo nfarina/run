@@ -1,7 +1,7 @@
-import * as chalk from "chalk";
+import chalk from "chalk";
 import { spawn } from "child_process";
 import { readFile, stat } from "fs/promises";
-import * as glob from "glob-promise";
+import { glob } from "glob";
 import { dirname, join, resolve } from "path";
 
 export class Package {
